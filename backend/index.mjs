@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express, {  request, response } from 'express';
 import { db } from './db.mjs';
 import { matchedData, checkSchema, validationResult } from 'express-validator';
 import { userValidation } from './middleware/validate.mjs';
@@ -9,7 +9,8 @@ import { hashPassword } from './middleware/helpers.mjs';
 import User from './models/user.mjs';
 import passport from 'passport';
 import './strategies/local-strategy.mjs'
-
+import routes from './routes/index.mjs'
+import Product from './models/products.mjs';
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(routes);
 
 const PORT = process.env.PORT || 5000;
 
