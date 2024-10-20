@@ -24,7 +24,9 @@
     "path": "^0.12.7",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.4"
+    "react-router-dom": "^6.27.0",
+    "sequelize": "^6.37.4",
+    "url": "^0.11.4"
   },
   "type": "module"
 }

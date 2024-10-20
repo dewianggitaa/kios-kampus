@@ -13,6 +13,9 @@ import routes from './routes/index.mjs'
 import Product from './models/products.mjs';
 
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 
 app.use(cookieParser("sangatrahasiacuy"))
 app.use(session({
@@ -26,14 +29,12 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(routes);
+app.use('/images', express.static('./images'))
 
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+
 
 app.use(express.json());
 
