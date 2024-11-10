@@ -13,8 +13,7 @@ const AddProduct = () => {
     const [stock, setStock] = useState([]);
     const [price, setPrice] = useState([]);
     const { user } = useUser();
-    
-    
+
 
     const navigate = useNavigate();
     
@@ -25,7 +24,7 @@ const AddProduct = () => {
         const productData = new FormData();
         productData.append("product_name", product_name);
         productData.append("description", description);
-        productData.append("image", image); // ini file gambar
+        productData.append("image", image); 
         productData.append("category", category);
         productData.append("stock", stock);
         productData.append("price", price);
@@ -36,13 +35,11 @@ const AddProduct = () => {
             method: "POST",
             body: productData
         })
-        .then((response) => response.json())
-        .then((data) => {
-            if(data){
-                console.log('Success: ', data);            
-                navigate('/home');
-            }
-            
+        .then((response) => {
+            response.json()
+            console.log(response)
+            alert("Add Product Succes")
+            navigate('/home')
         })
         .catch((error) => {
             console.log(error);

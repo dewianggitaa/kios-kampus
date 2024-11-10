@@ -30,6 +30,32 @@ router.get("/api/products", async (req, res) => {
     }
 });
 
+
+
+router.get("/api/products/:users_id", async (req, res) => {
+    const users_id = req.params.users_id;
+    try {
+        const findProduct = await Product.findAll({ where: { users_id } });
+        if (!findProduct) return res.sendStatus(404);
+        return res.json(findProduct);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send('Internal Server Error');
+    }
+});
+
+router.get("/api/product/:id", async (req, res) => {
+    const id = req.params.id;
+    try{
+        const findProduct = await Product.findByPk(id);
+        if(!findProduct) return res.sendStatus(404);
+        return res.json(findProduct)
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send('Internal Server Error');
+    }
+})
+
 router.post(
     "/api/product",
     upload.single("image"),
@@ -56,28 +82,32 @@ router.post(
     }
 );
 
-router.get("/api/products/:users_id", async (req, res) => {
-    const users_id = req.params.users_id;
-    try {
-        const findProduct = await Product.findAll({ where: { users_id } });
-        if (!findProduct) return res.sendStatus(404);
-        return res.json(findProduct);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send('Internal Server Error');
-    }
-});
+router.patch(
+    "/api/product/:id",
+    upload.single("image"),
+    async (req, res) => {
 
-router.get("/api/product/:id", async (req, res) => {
-    const id = req.params.id;
-    try{
-        const findProduct = await Product.findByPk(id);
-        if(!findProduct) return res.sendStatus(404);
-        return res.json(findProduct)
-    } catch(err) {
-        console.log(err);
-        return res.status(500).send('Internal Server Error');
+        const product_id = req.params.id;
+        const data = req.body;
+
+        if (req.file) {
+            data.image = req.file.path;
+        }
+
+        try {
+            const [updatedRows] = await Product.update(data, { where: { product_id } });
+
+            if (updatedRows === 0) {
+                return res.status(404).json({ message: 'Product not found or no changes made' });
+            }
+
+            const updatedProduct = await Product.findOne({ where: { product_id } });
+            res.status(200).json(updatedProduct);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        }
     }
-})
+);
 
 export default router;

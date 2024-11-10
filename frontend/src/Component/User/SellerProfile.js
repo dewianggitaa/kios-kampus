@@ -5,8 +5,8 @@ import Navbar from '../Navbar';
 
 const SellerProfile = () => {
     const location = useLocation();
-    const [seller, setSeller] = useState(null);  // Ubah dari undefined ke null
-    const [products, setProducts] = useState(null);  // Ubah dari undefined ke null
+    const [seller, setSeller] = useState(null); 
+    const [products, setProducts] = useState(null);
     const [error, setError] = useState(null);
 
     const queryParams = new URLSearchParams(location.search);
@@ -36,7 +36,7 @@ const SellerProfile = () => {
         };
 
         fetchingSellerData();
-    }, [id]); // Pastikan id menjadi dependensi
+    }, [id]);
 
     if (error) {
         return <div>Error: {error}</div>;

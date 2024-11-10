@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const CardProduct = ({ data }) => {
-    const seller_id = data.users_id;
+    /* const seller_id = data.users_id;
     const [seller, setSeller] = useState();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const CardProduct = ({ data }) => {
         if (seller_id) {
             fetchSellerData();
         }
-    }, [seller_id]); // Tambahkan seller_id sebagai dependensi
+    }, [seller_id]); */
 
     return (
         <Link to={`/product-detail?id=${data.product_id}`}>

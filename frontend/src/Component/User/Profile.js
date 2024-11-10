@@ -4,6 +4,7 @@ import { useUser } from '../../UserContext'
 import { PiUserCircle } from "react-icons/pi";
 import { error } from 'ajv/dist/vocabularies/applicator/dependencies';
 import CardProduct from '../CardProduct.mjs';
+import CardMyProduct from '../Product/CardMyProduct';
 
 
 const Profile = () => {
@@ -61,11 +62,11 @@ const Profile = () => {
                 </div>
             </div>
 
-            <div className='px-16 py-8'>
+            <div className='px-16 pb-16'>
                 <div>My Product</div>
-                <div>
+                <div className='border border-slate-400 rounded-xl'>
                     {products ? (products.map((product) => (
-                        <CardProduct key={product.id} data={product}/>
+                        <CardMyProduct key={product.id} data={product}/>
                     ))) : (
                         <div>Loading...</div>
                     )}
