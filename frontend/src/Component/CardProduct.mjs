@@ -35,7 +35,7 @@ const CardProduct = ({ data }) => {
                     <div className='px-2 text-xs'>Rp.{data.price}</div>
                 </div>
                 
-                <button className='text-xs bg-green-400'>Chat the Seller</button>
+                <button className='text-xs bg-green-400'>See Details</button>
             </div>
         </Link>
     );

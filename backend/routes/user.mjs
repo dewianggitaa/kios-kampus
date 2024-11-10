@@ -14,14 +14,14 @@ router.get('/api/users', async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM users');
         res.json(result.rows);
+        console.log("get all users success")
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
 });
 
-router.post(
-    '/api/signup', 
+router.post('/api/signup', 
     checkSchema(userValidation), 
     async (req, res) => {
         const errors = validationResult(req);
@@ -75,6 +75,29 @@ router.get("/api/user/:id", async (req, res) => {
     }
 });
 
+router.patch("/api/user/:id", async (req, res) => {
+    const user_id = req.params.id;
+    const data = req.body;
+    console.log(data)
+    
+    if (data.password) {
+        data.password = hashPassword(data.password);
+    }
 
+    try {
+        const [updatedRows] = await User.update(data, {where: {user_id}});
+
+        if (updatedRows === 0) {
+            return res.status(404).json({ message: 'Product not found or no changes made' });
+        }
+
+        const updatedUser = await User.findOne({where: {user_id}})
+        res.status(200).json(updatedUser);
+
+    } catch (error) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+})
 
 export default router;

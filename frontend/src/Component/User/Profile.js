@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import Navbar from '../Navbar'
 import { useUser } from '../../UserContext'
 import { PiUserCircle } from "react-icons/pi";
@@ -56,7 +57,9 @@ const Profile = () => {
                             <div>{user.no_wa}</div>
                         </div>
                         
-                        <button className='bg-green-400 rounded-full px-2 py-1'>Edit Profile</button>
+                        <Link to={"/edit-profile"}>
+                            <button className='bg-green-400 rounded-full px-2 py-1'>Edit Profile</button>
+                        </Link>
 
                     </div>
                 </div>

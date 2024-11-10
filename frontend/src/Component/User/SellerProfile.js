@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CardProduct from '../CardProduct.mjs';
 import Navbar from '../Navbar';
+import CardSellerProduct from '../Product/CardSellerProduct';
 
 const SellerProfile = () => {
     const location = useLocation();
@@ -53,7 +54,10 @@ const SellerProfile = () => {
             <button>Chat Sekarang</button>
             <div>
                 {products.map((product) => (
-                    <CardProduct key={product.id} data={product} />
+                    <Link to={`/product-detail?id=${product.product_id}`}>
+                        <CardSellerProduct key={product.id} data={product} />
+                    </Link>
+                    
                 ))}
             </div>
         </div>
