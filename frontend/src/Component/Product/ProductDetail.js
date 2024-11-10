@@ -41,6 +41,10 @@ const ProductDetail = () => {
         fetchProductData();
     }, [id]);
 
+    const whatsappLink = seller
+        ? `https://wa.me/${seller.no_wa}?text=Halo%20${seller.name},%20saya%20tertarik%20dengan%20produk%20Anda%20${product.product_name}`
+        : '#';
+
     return (
         <div>
             <Navbar/>
@@ -60,6 +64,10 @@ const ProductDetail = () => {
                     <div>Kategori: {product.category}</div>
                     <div>Harga: Rp.{product.price}</div>
                     <div>Stok: {product.stock}</div>
+                    <a href={whatsappLink}>
+                        <button className='py-2 px-4 bg-green-400 rounded-md'>Chat Seller</button>
+                    </a>
+                    
                 </div>
             )}
         </div>

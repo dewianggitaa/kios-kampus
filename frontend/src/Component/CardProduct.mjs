@@ -2,27 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const CardProduct = ({ data }) => {
-    /* const seller_id = data.users_id;
-    const [seller, setSeller] = useState();
-
-    useEffect(() => {
-        const fetchSellerData = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/api/user/${seller_id}`);
-                if (!response.ok) {
-                    throw new Error("Gagal mengambil data user");
-                }
-                const sellerData = await response.json();
-                setSeller(sellerData);
-            } catch (error) {
-                console.log('Terjadi kesalahan:', error);
-            }
-        };
-
-        if (seller_id) {
-            fetchSellerData();
-        }
-    }, [seller_id]); */
 
     return (
         <Link to={`/product-detail?id=${data.product_id}`}>

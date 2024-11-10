@@ -33,23 +33,26 @@ const EditProfile = () => {
             }
         }
     
+        // Only include password if it's not empty
         if (password) {
             userData["password"] = password;
             isModified = true;
+        } else {
+            delete userData.password;  // Ensure password is not included if empty
         }
     
         if (!isModified) {
             alert("No changes made to the profile.");
             return;
         }
-        
+    
         try {
             const response = await fetch(`http://localhost:5000/api/user/${user.user_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData),  // Make sure it's stringified JSON
+                body: JSON.stringify(userData),  // Send only the modified fields
             });
     
             if (!response.ok) throw new Error("Failed to edit user data");
@@ -61,6 +64,7 @@ const EditProfile = () => {
             console.error("Error in handleEdit:", error);
         }
     };
+    
     
 
     return (

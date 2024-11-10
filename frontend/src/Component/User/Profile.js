@@ -6,12 +6,14 @@ import { PiUserCircle } from "react-icons/pi";
 import { error } from 'ajv/dist/vocabularies/applicator/dependencies';
 import CardProduct from '../CardProduct.mjs';
 import CardMyProduct from '../Product/CardMyProduct';
+import { useNavigate } from 'react-router-dom';
 
 
 const Profile = () => {
     const [products, setProducts] = useState()
-    const { user } = useUser();
-    const user_id = user.user_id
+    const { user, setUser } = useUser();
+    const user_id = user.user_id;
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/products/${user_id}`)
@@ -28,6 +30,12 @@ const Profile = () => {
             console.log(error)
         });
     }, [])
+
+    const handleLogout = () => {
+        localStorage.removeItem('currentUser');
+        setUser(null);
+        navigate('/');
+    };
     
     return (
         <div className=''>
@@ -38,7 +46,7 @@ const Profile = () => {
                 <div className='flex w-full items-center justify-center gap-16 border border-spacing-1 border-slate-400 rounded-xl'>
                     <div>
                         <PiUserCircle className='scale-500 mb-10'/>
-                        <button className='bg-green-400 rounded-full px-2 py-1'>Logout</button>
+                        <button onClick={handleLogout} className='bg-green-400 rounded-full px-2 py-1'>Logout</button>
                     </div>
 
                     <div>

@@ -78,26 +78,31 @@ router.get("/api/user/:id", async (req, res) => {
 router.patch("/api/user/:id", async (req, res) => {
     const user_id = req.params.id;
     const data = req.body;
-    console.log(data)
-    
+
+    // Only hash the password if it's present in the request body
     if (data.password) {
         data.password = hashPassword(data.password);
+    } else {
+        // Ensure password is not included if it wasn't modified
+        delete data.password;
     }
 
     try {
-        const [updatedRows] = await User.update(data, {where: {user_id}});
+        const [updatedRows] = await User.update(data, { where: { user_id } });
 
         if (updatedRows === 0) {
-            return res.status(404).json({ message: 'Product not found or no changes made' });
+            return res.status(404).json({ message: 'User not found or no changes made' });
         }
 
-        const updatedUser = await User.findOne({where: {user_id}})
+        const updatedUser = await User.findOne({ where: { user_id } });
         res.status(200).json(updatedUser);
 
     } catch (error) {
-        console.error(err);
+        console.error(error);
         res.status(500).send('Internal Server Error');
     }
-})
+});
+
+
 
 export default router;

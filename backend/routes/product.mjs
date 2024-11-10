@@ -110,4 +110,21 @@ router.patch(
     }
 );
 
+router.delete("/api/product/:id", async(req, res) => {
+    const product_id = req.params.id;
+    try {
+        const deleteProduct = await Product.destroy({where: {product_id}})
+
+        if(deleteProduct === 0) {
+            console.log("Product not found")
+        } else{
+            console.log("Product deleted!")
+            res.send("Product deleted!")
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 export default router;
