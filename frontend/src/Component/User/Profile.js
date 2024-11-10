@@ -44,9 +44,10 @@ const Profile = () => {
             <div className='px-16 py-8'>
                 <div>Your Profile</div>
                 <div className='flex w-full items-center justify-center gap-16 border border-spacing-1 border-slate-400 rounded-xl'>
-                    <div>
+                    <div className='flex flex-col'>
                         <PiUserCircle className='scale-500 mb-10'/>
                         <button onClick={handleLogout} className='bg-green-400 rounded-full px-2 py-1'>Logout</button>
+                        <button className='bg-red-500 rounded-full px-2 py-1'>Delete Account</button>
                     </div>
 
                     <div>

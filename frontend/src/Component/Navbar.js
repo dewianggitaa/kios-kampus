@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <div className='sticky top-0 w-full flex justify-between px-16 py-2 bg-gray-100'>
+        <div className='z-999 sticky top-0 w-full flex justify-between px-16 py-2 bg-gray-100'>
             <Link to="/home">
                 <img src={logo} className='h-8 w-auto object-cover' />
             </Link>

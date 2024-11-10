@@ -28,7 +28,7 @@ const Regis = () => {
         })
         .then((data) =>{
             console.log('Success: ', data);
-            navigate('/home')
+            navigate('/')
         })
         .catch((error) => console.log(error))
     }

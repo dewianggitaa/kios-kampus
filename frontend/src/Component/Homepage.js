@@ -33,7 +33,6 @@ const Homepage = () => {
             <Navbar />
             <div className='bg-green-100 h-screen overflow-y-auto'>
                 <img src={landingImage} className='h-36 w-full object-cover' />
-                <div>Welcome {user.name}</div>
                 <div className='flex flex-wrap gap-4 w-full px-16 py-8 justify-center space-x-4'>
                     {error && <div>Error: {error.message}</div>}
                     {data ? (

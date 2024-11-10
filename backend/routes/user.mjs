@@ -79,11 +79,9 @@ router.patch("/api/user/:id", async (req, res) => {
     const user_id = req.params.id;
     const data = req.body;
 
-    // Only hash the password if it's present in the request body
     if (data.password) {
         data.password = hashPassword(data.password);
     } else {
-        // Ensure password is not included if it wasn't modified
         delete data.password;
     }
 
@@ -103,6 +101,22 @@ router.patch("/api/user/:id", async (req, res) => {
     }
 });
 
+router.delete("/api/user/:id", async(req, res) => {
+    const user_id = req.params.id;
+    try {
+        const deleteUser = await User.destroy({where: {user_id}})
+
+        if(deleteUser === 0) {
+            console.log("User not found")
+        } else{
+            console.log("User deleted!")
+            res.send("User deleted!")
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 
 export default router;
