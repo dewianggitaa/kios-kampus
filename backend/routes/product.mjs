@@ -44,6 +44,19 @@ router.get("/api/products/:users_id", async (req, res) => {
     }
 });
 
+router.get("/api/products/:category", async(req, res) => {
+    const category = req.params.category;
+    console.log(category)
+    try {
+        const findProducts = await Product.findAll({where: {category}})
+        if(!findProducts) return res.sendStatus(404);
+        return res.json(findProducts);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500).send("Internal Server Error")
+    }
+})
+
 router.get("/api/product/:id", async (req, res) => {
     const id = req.params.id;
     try{
