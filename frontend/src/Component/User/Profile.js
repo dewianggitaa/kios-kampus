@@ -36,6 +36,28 @@ const Profile = () => {
         setUser(null);
         navigate('/');
     };
+
+    const handleDelete = () => {
+        fetch(`http://localhost:5000/api/user/${user_id}`, {
+            method: 'DELETE',
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to delete user");
+            }
+            return response.text(); 
+        })
+        .then((message) => {
+            console.log(message);
+            alert("User deleted successfully!");
+            navigate('/')
+        })
+        .catch((error) => {
+            console.error("Error in handleDelete:", error);
+            alert("Failed to delete user");
+        });
+    };
+    
     
     return (
         <div className=''>
@@ -47,7 +69,7 @@ const Profile = () => {
                     <div className='flex flex-col'>
                         <PiUserCircle className='scale-500 mb-10'/>
                         <button onClick={handleLogout} className='bg-green-400 rounded-full px-2 py-1'>Logout</button>
-                        <button className='bg-red-500 rounded-full px-2 py-1'>Delete Account</button>
+                        <button className='bg-red-500 rounded-full px-2 py-1' onClick={handleDelete}>Delete Account</button>
                     </div>
 
                     <div>
