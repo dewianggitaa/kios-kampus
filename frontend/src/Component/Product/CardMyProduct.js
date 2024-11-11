@@ -5,8 +5,25 @@ const CardMyProduct = ({data}) => {
     const navigate = useNavigate();
 
     const handleDelete = () => {
-
-    }
+        fetch(`http://localhost:5000/api/product/${data.product_id}`, {
+            method: 'DELETE',
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to delete product");
+            }
+            return response.text(); 
+        })
+        .then((message) => {
+            console.log(message);
+            alert("Product deleted successfully!");
+            navigate('/profile')
+        })
+        .catch((error) => {
+            console.error("Error in handleDelete:", error);
+            alert("Failed to delete Product");
+        });
+    };
 
     return (
         <div className='flex w-full items-center justify-center'>
@@ -18,7 +35,7 @@ const CardMyProduct = ({data}) => {
                 <button className='text-center bg-orange-300 w-16 mr-16 ml-16'>Edit</button>
             </Link>
 
-            <button className='text-center bg-red-500 w-16'>Delete</button>
+            <button onClick={handleDelete} className='text-center bg-red-500 w-16'>Delete</button>
             
         </div>
     )
