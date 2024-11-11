@@ -34,11 +34,11 @@ const Login = () => {
   }
 
   return (
-    <div className="flex w-screen">
-      <img src={image} className="w-1/2 h-screen object-cover" />
-      <div className="w-1/2 flex flex-col justify-center items-center">
-        <h1 className="text-4xl mb-10 text-center">Welcome Back!</h1>
-        <p>Enter your email and password to coninue</p>
+    <div className="flex flex-col md:flex-row lg:flex-row w-screen h-screen">
+      <img src={image} className="w-full md:w-1/2 lg:w-1/2 h-1/3 md:h-screen object-cover" />
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+        <h1 className="text-center mb-10 text-2xl md:text-3xl lg:text-4xl font-semibold">Welcome Back!</h1>
+        <p className='text-sm'>Enter your email and password to continue</p>
         <div className="flex bg-[#EAECEB] w-fit gap-5 rounded-xl p-1 mb-5">
           <div className="p-2 cursor-pointer rounded-l-xl w-25 text-center">
             Sign In

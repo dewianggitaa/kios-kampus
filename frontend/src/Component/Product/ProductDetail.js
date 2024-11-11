@@ -48,11 +48,10 @@ const ProductDetail = () => {
         : '#';
 
   return (
-    <div className="px-8 py-6 min-h-screen bg-gray-50">
+    <div className="flex flex-col">
       <Navbar />
       <h1 className="text-2xl font-semibold mb-6">Product Detail</h1>
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <main className="max-w-6xl mx-auto mt-8 p-4">
           {isLoading ? (
             <div className="tgit checkout dewisideext-center text-gray-600 text-lg">
