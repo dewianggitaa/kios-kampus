@@ -4,6 +4,7 @@ import { checkSchema, matchedData, validationResult } from "express-validator";
 import { productValidation } from "../middleware/validate.mjs";
 import multer from 'multer';
 import path from 'path';
+import { Op } from 'sequelize'
 
 const router = new Router();
 
@@ -68,6 +69,24 @@ router.get("/api/product/:id", async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 })
+
+router.get("/api/products/search/:keyword", async (req, res) => {
+    const { keyword } = req.params;
+    try {
+        const products = await Product.findAll({
+            where: {
+                product_name: {
+                    [Op.iLike]: `%${keyword}%`
+                }
+            }
+        });
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 router.post(
     "/api/product",

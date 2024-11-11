@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoSearch } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { Menu, MenuItems, MenuItem, MenuButton } from '@headlessui/react';
 import logo from "../assets/logo.png";
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ onCategorySelect }) => {
+const Navbar = ({ onCategorySelect, onSearchResults, onClearSearch }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchChange = (event) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+        if (query) {
+            fetch(`http://localhost:5000/api/products/search/${query}`)
+                .then(res => res.json())
+                .then(results => onSearchResults(results, query));
+        } else {
+            onClearSearch(); // Clear the search if the input is empty
+        }
+    };
+
     const handleCategoryClick = (category) => {
         if (onCategorySelect) {
             onCategorySelect(category);
@@ -15,11 +29,16 @@ const Navbar = ({ onCategorySelect }) => {
     return (
         <div className='z-999 sticky top-0 w-full flex justify-between px-16 py-2 bg-gray-100'>
             <Link to="/home">
-                <img src={logo} className='h-8 w-auto object-cover' />
+                <img src={logo} className='h-8 w-auto object-cover' alt="Logo" />
             </Link>
 
             <div className="flex border border-slate-400 rounded-full w-1/3">
-                <input className='pl-3 w-full bg-transparent placeholder:text-xs focus:outline-none text-xs' placeholder='Search Product' />
+                <input 
+                    className='pl-3 w-full bg-transparent placeholder:text-xs focus:outline-none text-xs' 
+                    placeholder='Search Product' 
+                    value={searchQuery} 
+                    onChange={handleSearchChange} 
+                />
                 <button className="pr-3"><IoSearch /></button>
             </div>
 
@@ -33,14 +52,14 @@ const Navbar = ({ onCategorySelect }) => {
                             </MenuButton>
                         </div>
 
-                        <MenuItems transition className="absolute right-0 z-50 mt-10 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none">
-                        <MenuItem>
+                        <MenuItems className="absolute right-0 z-50 mt-10 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <MenuItem>
                                 <button onClick={() => handleCategoryClick('')} className='rounded-t-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     All Category
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Books and Stationary')} className='rounded-t-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Books and Stationary')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Books and Stationary
                                 </button>
                             </MenuItem>
@@ -77,7 +96,7 @@ const Navbar = ({ onCategorySelect }) => {
                         <li>Sell Now</li>
                     </button>
                 </Link>
-                
+
                 <Link to="/profile">
                     <button>
                         <li>Profile</li>
