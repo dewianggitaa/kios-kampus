@@ -66,7 +66,7 @@ const ProductDetail = () => {
               {/* Bagian Gambar Produk */}
               <div className="flex-shrink-0">
                 <img
-                  src={`http://localhost:5000/${product.image}`}
+                  src={product.image}
                   alt={product.product_name}
                   className="w-80 h-80 object-cover rounded-lg shadow-lg"
                 />

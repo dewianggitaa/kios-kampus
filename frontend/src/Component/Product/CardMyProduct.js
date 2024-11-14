@@ -27,7 +27,7 @@ const CardMyProduct = ({data}) => {
 
     return (
         <div className='flex w-full items-center justify-center'>
-            <img src={`http://localhost:5000/${data.image}`} className='w-16 h-16 object-cover'/>
+            <img src={data.image} className='w-16 h-16 object-cover'/>
             <div className='text-center w-56'>{data.product_name}</div>
             <div className='text-center w-56'>{data.price}</div>
             

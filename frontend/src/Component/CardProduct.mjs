@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 
 const CardProduct = ({ data }) => {
   return (
-    <Link to={`/product-detail?id=${data.product_id}`}>
-      <div className="flex flex-col bg-white drop-shadow-xl w-48 h-84 my-4 rounded-lg">
+      <div className="z-1 relative flex flex-col bg-white drop-shadow-xl w-48 h-84 my-4 rounded-lg">
         <img
           src={data.image}
           className="h-48 w-48 p-1 rounded-lg object-cover"
@@ -20,12 +19,15 @@ const CardProduct = ({ data }) => {
           <div className="px-2 text-xs ml-1">{data.stock}</div>
           <div className="px-2 text-xs ml-1">Rp.{data.price}</div>
         </div>
-
-        <button className="my-2 mx-3 text-center text-xs bg-green-400 rounded-lg">
-          See Details
-        </button>
+        <div className='flex justify-center'>
+          <Link to={`/product-detail?id=${data.product_id}`}>
+            <button className="my-2 mx-3 py-1 hover:bg-green-100 w-40 text-center text-xs bg-green-200 rounded-lg">
+              See Details
+            </button>
+          </Link>
+        </div>
+      
       </div>
-    </Link>
   )
 }
 
