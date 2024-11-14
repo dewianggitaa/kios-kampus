@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "express-fileupload": "^1.5.1",
+    "form-data": "^4.0.1",
+    "imgbb-uploader": "^1.5.1"
+  }
+}

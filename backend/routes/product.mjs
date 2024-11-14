@@ -4,9 +4,15 @@ import { checkSchema, matchedData, validationResult } from "express-validator";
 import { productValidation } from "../middleware/validate.mjs";
 import multer from 'multer';
 import path from 'path';
-import { Op } from 'sequelize'
+import { Op } from 'sequelize';
+import axios from 'axios';
+import fs from 'fs';
+import FormData from 'form-data'
+
 
 const router = new Router();
+
+const imageAPIKey = "ce27330d1b0650de28d068b9e40df50a";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -19,6 +25,34 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+router.post('/api/upload', upload.single('image'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    try {
+        const imagePath = req.file.path;
+
+        const imageData = fs.readFileSync(imagePath);
+        const formData = new FormData();
+        formData.append('image', imageData.toString('base64'));
+    
+        const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+            headers: formData.getHeaders(),
+        });
+
+      // Jika upload sukses
+        fs.unlinkSync(imagePath); // Hapus file yang diupload setelah sukses
+        res.status(200).json({
+            message: 'File uploaded successfully',
+            imageUrl: response.data.data.url, // URL gambar yang di-upload ke ImgBB
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error uploading image');
+    }
+});
 
 router.get("/api/products", async (req, res) => {
     try {
@@ -98,6 +132,8 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
+        const imagePath = req.file.path;
+
         const data = matchedData(req);
 
         if (req.file) {
@@ -105,6 +141,23 @@ router.post(
         }
 
         try {
+            const imageData = fs.readFileSync(imagePath);
+            const formData = new FormData();
+            formData.append('image', imageData.toString('base64'));
+
+            const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+                headers: formData.getHeaders(),
+            });
+
+            // Jika upload sukses, hapus file yang diupload dari server
+            fs.unlinkSync(imagePath);
+
+            // Simpan URL gambar dari imgbb ke dalam data produk
+            const uploadedImageUrl = response.data.data.url;
+            const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+            data.image = correctUrl;
+
+
             const newProduct = await Product.create(data);
             res.status(201).json(newProduct);
         } catch (err) {

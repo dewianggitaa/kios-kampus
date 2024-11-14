@@ -22,10 +22,9 @@ const Homepage = () => {
         setSearchQuery(query);
     };
 
-    // Reset to all products if searchQuery is cleared
     const handleClearSearch = () => {
         setSearchResults([]);
-        setSearchQuery(''); // Clear the search query
+        setSearchQuery('');
     };
 
     useEffect(() => {
@@ -44,7 +43,6 @@ const Homepage = () => {
             });
     }, []);
 
-    // Display either searchResults or all products if searchResults is empty
     const displayedProducts = searchResults.length === 0 ? data : searchResults;
 
     return (
@@ -54,7 +52,7 @@ const Homepage = () => {
                 onSearchResults={handleSearchResults}
                 onClearSearch={handleClearSearch} // Pass clear search to Navbar
             />
-            <div className='bg-green-100 h-screen overflow-y-auto'>
+            <div className='bg-gray-100 h-screen overflow-y-auto'>
                 <img src={landingImage} className='h-36 w-full object-cover' />
                 <div className='flex flex-wrap gap-4 w-full px-16 py-8 justify-center space-x-4'>
                     {error && <div>Error: {error.message}</div>}
