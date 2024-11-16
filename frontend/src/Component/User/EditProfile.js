@@ -72,41 +72,41 @@ const EditProfile = () => {
     <div className="h-screen">
       <Navbar />
       <div className="flex flex-col h-full w-full justify-center items-center">
-        <div>
-          <div className="flex gap-32 mb-4">
-            <div>Full Name</div>
+        <div className='border border-gray-300 p-8 rounded-xl shadow-sm mb-4 text-sm'>
+          <div className="flex mb-4">
+            <div className='w-72 font-medium'>Full Name</div>
             <input
-              className="flex bg-[#EAECEB] w-full gap-5 rounded-xl p-1 mb-5"
+              className="flex pl-4 w-full bg-gray-100 rounded-xl p-1 mb-5"
               name="name"
               value={user?.name || ''}
               onChange={handleChange}
             />
           </div>
 
-          <div className="flex gap-32 mb-4">
-            <div>Email</div>
+          <div className="flex mb-4">
+            <div className='w-72 font-medium'>Email</div>
             <input
-              className="flex bg-[#EAECEB] w-full gap-5 rounded-xl p-1 mb-5"
+              className="flex pl-4 w-full bg-gray-100 rounded-xl p-1 mb-5"
               name="email"
               value={user?.email || ''}
               onChange={handleChange}
             />
           </div>
 
-          <div className="flex gap-20 mb-4">
-            <div>WhatsApp Number</div>
+          <div className="flex mb-4">
+            <div className='w-72 font-medium'>WhatsApp Number</div>
             <input
-              className="flex bg-[#EAECEB] w-full gap-5 rounded-xl p-1 mb-5"
+              className="flex pl-4 w-full bg-gray-100 rounded-xl p-1 mb-5"
               name="no_wa"
               value={user?.no_wa || ''}
               onChange={handleChange}
             />
           </div>
 
-          <div className="flex gap-24 mb-4">
-            <div>Password</div>
+          <div className="flex mb-4">
+            <div className='w-72 font-medium'>Password</div>
             <input
-              className="flex bg-[#EAECEB] w-full gap-5 rounded-xl p-1 mb-5"
+              className="flex pl-4 w-full bg-gray-100 rounded-xl p-1 mb-5"
               name="password"
               type="password"
               placeholder="Enter new Password"
@@ -114,14 +114,13 @@ const EditProfile = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-
-          <button
-            onClick={handleEdit}
-            className="bg-[#195319] px-8 py-2 rounded-md text-white"
-          >
-            Edit
-          </button>
         </div>
+        <button
+          onClick={handleEdit}
+          className="bg-green-600 hover:bg-green-800 px-8 py-1 rounded-lg text-white"
+        >
+          Update
+        </button>
       </div>
     </div>
   )

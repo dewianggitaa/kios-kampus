@@ -26,16 +26,16 @@ const CardMyProduct = ({data}) => {
     };
 
     return (
-        <div className='flex w-full items-center justify-center'>
-            <img src={data.image} className='w-16 h-16 object-cover'/>
-            <div className='text-center w-56'>{data.product_name}</div>
+        <div className='flex w-full items-center justify-between py-2 px-8 m-1 text-xs'>
+            <img src={data.image} className=' w-16 h-16 object-cover'/>
+            <div className='text-center  w-56'>{data.product_name}</div>
             <div className='text-center w-56'>{data.price}</div>
             
             <Link to={`/edit-product?id=${data.product_id}`}>
-                <button className='text-center bg-orange-300 w-16 mr-16 ml-16'>Edit</button>
+                <button className='text-center bg-orange-400 mr-16 ml-12 py-1 px-4 rounded-md text-white hover:bg-orange-500'>Edit</button>
             </Link>
 
-            <button onClick={handleDelete} className='text-center bg-red-500 w-16'>Delete</button>
+            <button onClick={handleDelete} className='text-center bg-red-400 py-1 px-4 mr-2 rounded-md text-white hover:bg-red-600'>Delete</button>
             
         </div>
     )

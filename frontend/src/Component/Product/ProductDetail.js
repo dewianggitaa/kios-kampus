@@ -48,49 +48,42 @@ const ProductDetail = () => {
         : '#';
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-sceen">
       <Navbar />
-      <h1 className="text-2xl font-semibold mb-6">Product Detail</h1>
-      <div className="min-h-screen bg-gray-50">
-        <main className="max-w-6xl mx-auto mt-8 p-4">
+      <div className=" bg-gray-100 py-16 px-16">
+        <div className='text-md font-semibold'>Product Detail</div>
+        <div className="max-w-6xl mx-auto p-4">
           {isLoading ? (
-            <div className="tgit checkout dewisideext-center text-gray-600 text-lg">
+            <div className="text-center text-gray-600 text-sm">
               Sedang memuat data produk...
             </div>
           ) : error ? (
-            <div className="text-center text-red-500 text-lg">
+            <div className="text-center text-red-500 text-sm">
               Terjadi kesalahan: {error}
             </div>
           ) : (
             <div className="flex flex-col lg:flex-row items-start lg:space-x-8">
-              {/* Bagian Gambar Produk */}
               <div className="flex-shrink-0">
                 <img
                   src={product.image}
                   alt={product.product_name}
                   className="w-80 h-80 object-cover rounded-lg shadow-lg"
                 />
-                <div className="flex justify-between mt-4 text-lg font-semibold text-gray-700">
+                <div className="flex justify-between mt-4 text-sm font-semibold text-gray-700">
                   <div>Rp. {product.price}</div>
-                  <div>Stok: {product.stock}</div>
+                  <div>Stock: {product.stock}</div>
                 </div>
               </div>
 
-              {/* Bagian Detail Produk */}
-              <div className="flex flex-col space-y-4 mt-8 lg:mt-0">
-                <h1 className="text-3xl font-bold text-gray-900">
+              <div className="flex flex-col space-y-4">
+                <h1 className="text-lg font-bold text-gray-900">
                   Novel: {product.product_name}
                 </h1>
                 <Link
                   to={`/seller-profile?id=${seller.user_id}`}
                   className="flex items-center space-x-3"
                 >
-                  <img
-                    src={seller.profile_picture}
-                    alt={seller.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <div className="font-semibold text-gray-800">
+                  <div className="font-semibold text-green-800 italic border border-green-800 rounded-md p-2 hover:text-white hover:bg-green-800">
                     {seller.name}
                   </div>
                 </Link>
@@ -108,7 +101,6 @@ const ProductDetail = () => {
                   ))}
                 </div>
 
-                {/* Tombol Chat Seller */}
                 <a
                   href={whatsappLink}
                   target="_blank"
@@ -128,7 +120,7 @@ const ProductDetail = () => {
               </div>
             </div>
           )}
-        </main>
+        </div>
       </div>
     </div>
   )

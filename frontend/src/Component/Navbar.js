@@ -5,7 +5,7 @@ import { Menu, MenuItems, MenuItem, MenuButton } from '@headlessui/react';
 import logo from "../assets/logo.png";
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ onCategorySelect, onSearchResults, onClearSearch }) => {
+const Navbar = ({ onCategorySelect, onSearchResults, onClearSearch, enableSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleSearchChange = (event) => {
@@ -27,20 +27,22 @@ const Navbar = ({ onCategorySelect, onSearchResults, onClearSearch }) => {
     };
 
     return (
-        <div className='z-10 sticky top-0 w-full flex justify-between px-16 py-2 bg-gray-100'>
+        <div className='z-10 sticky top-0 w-full flex justify-between px-16 py-2 bg-gray-100 shadow-sm'>
             <Link to="/home">
                 <img src={logo} className='h-8 w-auto object-cover' alt="Logo" />
             </Link>
 
-            <div className="flex border border-slate-400 rounded-full w-1/3">
-                <input 
-                    className='pl-3 w-full bg-transparent placeholder:text-xs focus:outline-none text-xs' 
-                    placeholder='Search Product' 
-                    value={searchQuery} 
-                    onChange={handleSearchChange} 
-                />
-                <button className="pr-3"><IoSearch /></button>
-            </div>
+            {enableSearch && (
+                <div className="flex border border-slate-400 rounded-full w-1/3">
+                    <input 
+                        className='pl-3 w-full bg-transparent placeholder:text-xs focus:outline-none text-xs' 
+                        placeholder='Search Product' 
+                        value={searchQuery} 
+                        onChange={handleSearchChange} 
+                    />
+                    <button className="pr-3"><IoSearch /></button>
+                </div>
+            )}
 
             <ul className='flex gap-4 text-xs items-center font-medium justify-end'>
                 <li>
@@ -54,37 +56,37 @@ const Navbar = ({ onCategorySelect, onSearchResults, onClearSearch }) => {
 
                         <MenuItems className="absolute right-0 z-50 mt-10 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('')} className='rounded-t-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('')} className='w-full text-left rounded-t-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     All Category
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Books and Stationary')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Books and Stationary')} className='w-full text-left block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Books and Stationary
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Clothing and Accessories')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Clothing and Accessories')} className='w-full text-left block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Clothing and Accessories
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Electronics')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Electronics')} className='w-full text-left block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Electronics
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Foods and Beverages')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Foods and Beverages')} className='w-full text-left block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Foods and Beverages
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Service')} className='block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Service')} className='w-full text-left block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Service
                                 </button>
                             </MenuItem>
                             <MenuItem>
-                                <button onClick={() => handleCategoryClick('Other')} className='rounded-b-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
+                                <button onClick={() => handleCategoryClick('Other')} className='w-full text-left rounded-b-md block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100'>
                                     Other
                                 </button>
                             </MenuItem>

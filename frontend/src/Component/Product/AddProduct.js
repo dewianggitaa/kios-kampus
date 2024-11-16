@@ -49,21 +49,21 @@ const AddProduct = () => {
     return (
         <div className='flex flex-col h-screen overflow-hidden'>
             <Navbar/>
-            <div className='px-16 py-8'>
-                <div>Add Product</div>
-                <div className='flex flex-col gap-4 ring-1 rounded-lg p-4'>
+            <div className='px-16 py-8 bg-gray-100'>
+                <div className="font-semibold text-md pb-2">Add Product</div>
+                <div className='flex flex-col gap-4 ring-1 rounded-lg p-4 text-sm font-normal'>
                     <div>
                         <p>Name</p>
-                        <input value={product_name} onChange={(event) => setName(event.target.value)} placeholder='Product Name' className='border rounded-md border-gray-400 w-full'/>
+                        <input value={product_name} onChange={(event) => setName(event.target.value)} placeholder='Product Name' className='pl-2 border rounded-md border-gray-400 w-full'/>
                     </div>
 
                     <div>
                         <p className=''>Decription</p>
-                        <input value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Product's description" className='border border-gray-400 rounded-md w-full'/>
+                        <input value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Product's description" className='pl-2 border border-gray-400 rounded-md w-full'/>
                     </div>
                     
                     <div>
-                        <div className='w-full rounded-md border border-gray-400 flex items-center justify-center h-24'>
+                        <div className='w-full rounded-md border border-gray-400 flex pl-2 items-center justify-center h-24'>
                             <input type='file' onChange={(event) => setImage(event.target.files[0])}  />
                         </div>
 
@@ -74,7 +74,7 @@ const AddProduct = () => {
                         <div>
                             <p className="text-xs">Category</p>
                             <Menu as="div" className="relative inline-block text-left">
-                                <MenuButton className="inline-flex w-56 items-center justify-between gap-x-1.5 rounded-md bg-white px-3 py-2 text-xs font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100">
+                                <MenuButton className="inline-flex w-56 items-center justify-between gap-x-1.5 rounded-md bg-white px-3 py-2 text-xs font-normal text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100">
                                     {category || 'Books and Stationary'}
                                     <IoMdArrowDropdown />
                                 </MenuButton>
@@ -115,20 +115,19 @@ const AddProduct = () => {
 
                         <div>
                             <p className="text-xs">Stock</p>
-                            <input value={stock} onChange={(event) => setStock(event.target.value)} className='border border-gray-300 rounded-md'/>
+                            <input value={stock} onChange={(event) => setStock(event.target.value)} placeholder='Stock' className='pl-2 border border-gray-300 rounded-md'/>
                         </div>
 
                         <div >
                             <p className='text-xs'>Price</p>
                             <div className='flex border border-gray-300 bg-gray-300 rounded-md'>
                                 <p className='px-1'>Rp</p>
-                                <input value={price} onChange={(event) => setPrice(event.target.value)} className='border border-gray-300 rounded-md'/>
+                                <input value={price} onChange={(event) => setPrice(event.target.value)} className='pl-2 border border-gray-300 rounded-md'/>
                             </div>
                         </div>
-
                     </div>
+                    <button onClick={handleSubmit} className='text-white hover:bg-green-600 bg-green-400 rounded-lg mt-4 py-1'>Add Product</button>
                 </div>
-                <button onClick={handleSubmit} className='bg-green-400 w-full rounded-lg mt-4 py-1'>Add Product</button>
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ const CardProduct = ({ data }) => {
           className="h-48 w-48 p-1 rounded-lg object-cover"
           alt="Product"
         />
-        <div className="text-left font-bold px-2 py-1 text-xs">
+        <div className="h-4 text-left font-semibold px-2 py-1 my-1 text-xs">
           {data.product_name}
         </div>
         <div className="">

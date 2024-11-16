@@ -58,7 +58,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gray-100">
       <Navbar />
       <div className="px-16 py-8">
         <div>
@@ -68,12 +68,12 @@ const Profile = () => {
                 <PiUserCircle className="text-9xl text-gray-800 mb-5" />
                 <button
                   onClick={handleLogout}
-                  className="bg-[#1E1E1E] text-[#FFFFFF] text-sm rounded-xl font-normal px-4 py-2 text-center border border-spacing-4 mb-5"
+                  className="bg-gray-600 hover:bg-gray-950 text-[#FFFFFF] text-sm rounded-xl font-normal px-4 py-2 text-center border border-spacing-4 mb-5"
                 >
                   Logout
                 </button>
                 <button
-                  className="bg-[#D9534F] text-[#FFFFFF] text-sm rounded-xl font-normal px-4 py-2 text-center border border-spacing-4 mb-5"
+                  className="bg-red-400 hover:bg-red-600 text-[#FFFFFF] text-sm rounded-xl font-normal px-4 py-2 text-center border border-spacing-4 mb-5"
                   onClick={handleDelete}
                 >
                   Delete Account
@@ -97,7 +97,7 @@ const Profile = () => {
                 </div>
 
                 <Link to={'/edit-profile'}>
-                  <button className="flex justify-center w-full bg-[#195319] text-[#FFFFFF] text-sm rounded-xl px-4 py-2 text-cente">
+                  <button className="flex justify-center w-full bg-green-700 hover:bg-green-900 text-[#FFFFFF] text-sm rounded-xl px-4 py-2 text-cente">
                     Edit Profile
                   </button>
                 </Link>
@@ -108,7 +108,7 @@ const Profile = () => {
       
 
       <div className="px-16 py-8">
-        <div className='text-lg font-semibold mb-2'>My Product</div>
+        <div className='text-md font-semibold mb-2'>My Product</div>
         <div className="border border-slate-400 rounded-xl text-left">
           {products ? (
             products.map((product) => (

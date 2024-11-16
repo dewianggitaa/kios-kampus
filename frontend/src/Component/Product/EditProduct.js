@@ -78,83 +78,80 @@ const EditProduct = () => {
     }
 
     return (
-        <div className="px-8 py-6 bg-white rounded-lg shadow-md">
+        <div className='flex flex-col h-screen bg-gray-100'>
           <Navbar />
-          <h1 className="text-2xl font-semibold mb-6">Edit Product</h1>
-      
-          <div className="space-y-4">
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Name</label>
-              <input
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                name="product_name"
-                value={product.product_name}
-                onChange={handleChange}
-              />
-            </div>
-      
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Description</label>
-              <input
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                name="description"
-                value={product.description}
-                onChange={handleChange}
-              />
-            </div>
-      
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Category</label>
-              <input
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                name="category"
-                value={product.category}
-                onChange={handleChange}
-              />
-            </div>
-      
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Stock</label>
-              <input
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                name="stock"
-                value={product.stock}
-                onChange={handleChange}
-              />
-            </div>
-      
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Price</label>
-              <input
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                name="price"
-                value={product.price}
-                onChange={handleChange}
-              />
-            </div>
-      
-            <div className="flex items-center gap-8">
-              <label className="w-36 text-gray-700 font-medium">Product Image</label>
-              <div className="flex items-center gap-4">
-                <img
-                  className="w-32 h-32 object-cover rounded-md border border-gray-300"
-                  src={`http://localhost:5000/${product.image}`}
-                  alt="Product"
-                />
+          <div className='px-16 py-8'>
+            <div className="text-md font-semibold mb-6">Edit Product</div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-8">
+                <label className="w-36 text-sm text-gray-700 font-medium">Product Name</label>
                 <input
-                  type="file"
-                  onChange={(event) => setImage(event.target.files[0])}
-                  className="file:border file:border-gray-300 file:px-4 file:py-2 file:rounded-md file:bg-white file:text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="flex-1 border border-gray-300 px-4 py-1 rounded-full focus:outline-none focus:ring-1 focus:ring-green-100 text-sm"
+                  name="product_name"
+                  value={product.product_name}
+                  onChange={handleChange}
                 />
               </div>
+        
+              <div className="flex text-sm items-center gap-8">
+                <label className="w-36 text-gray-700 font-medium">Product Description</label>
+                <input
+                  className="flex-1 border border-gray-300 px-4 py-1 rounded-full focus:outline-none focus:ring-1 focus:ring-green-100"
+                  name="description"
+                  value={product.description}
+                  onChange={handleChange}
+                />
+              </div>
+        
+              <div className="flex text-sm items-center gap-8">
+                <label className="w-36 text-gray-700 font-medium">Product Category</label>
+                <input
+                  className="flex-1 border border-gray-300 px-4 py-1 rounded-full focus:outline-none focus:ring-1 focus:ring-green-100"
+                  name="category"
+                  value={product.category}
+                  onChange={handleChange}
+                />
+              </div>
+        
+              <div className="flex text-sm items-center gap-8">
+                <label className="w-36 text-gray-700 font-medium">Product Stock</label>
+                <input
+                  className="flex-1 border border-gray-300 px-4 py-1 rounded-full focus:outline-none focus:ring-1 focus:ring-green-100"
+                  name="stock"
+                  value={product.stock}
+                  onChange={handleChange}
+                />
+              </div>
+        
+              <div className="flex text-sm items-center gap-8">
+                <label className="w-36 text-gray-700 font-medium">Product Price</label>
+                <input
+                  className="flex-1 border border-gray-300 px-4 py-1 rounded-full focus:outline-none focus:ring-1 focus:ring-green-100"
+                  name="price"
+                  value={product.price}
+                  onChange={handleChange}
+                />
+              </div>
+        
+              <div className="flex text-sm items-center gap-8">
+                <label className="w-36 text-gray-700 font-medium">Product Image</label>
+                <div className="flex items-center gap-4">
+                  <input
+                    type="file"
+                    onChange={(event) => setImage(event.target.files[0])}
+                    className="file:border file:border-gray-300 file:px-4 file:py-2 file:rounded-full file:bg-white file:text-gray-700 focus:outline-none focus:ring-1 focus:ring-green-100"
+                  />
+                </div>
+              </div>
             </div>
-      
-            <button
-              onClick={handleEdit}
-              className="w-15 px-4 py-2 mt-8 mx-8 bg-green-500 text-white font-semibold rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
-            >
-              Edit
-            </button>
+            <div className='w-full flex items-center'>
+              <button
+                onClick={handleEdit}
+                className="w-full mt-8 py-1 bg-green-500 text-white font-semibold rounded-md hover:bg-green-800"
+              >
+                Edit
+              </button>
+            </div>
           </div>
         </div>
       );
