@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const CardProduct = ({ data }) => {
   return (
-      <div className="z-1 relative flex flex-col bg-white drop-shadow-xl w-48 h-84 my-4 rounded-lg">
+      <div className="z-0 relative flex flex-col bg-white drop-shadow-xl w-48 h-84 my-4 rounded-lg">
         <img
           src={data.image}
           className="h-48 w-48 p-1 rounded-lg object-cover"

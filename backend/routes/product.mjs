@@ -42,17 +42,21 @@ router.post('/api/upload', upload.single('image'), async (req, res) => {
             headers: formData.getHeaders(),
         });
 
-      // Jika upload sukses
-        fs.unlinkSync(imagePath); // Hapus file yang diupload setelah sukses
+        const uploadedImageUrl = response.data.data.url;
+        const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+
+        fs.unlinkSync(imagePath);
+
         res.status(200).json({
             message: 'File uploaded successfully',
-            imageUrl: response.data.data.url, // URL gambar yang di-upload ke ImgBB
+            imageUrl: correctUrl, 
         });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error uploading image');
     }
 });
+
 
 router.get("/api/products", async (req, res) => {
     try {
@@ -171,15 +175,29 @@ router.patch(
     "/api/product/:id",
     upload.single("image"),
     async (req, res) => {
-
         const product_id = req.params.id;
         const data = req.body;
 
-        if (req.file) {
-            data.image = req.file.path;
-        }
-
         try {
+            if (req.file) {
+                // Jika ada file yang diunggah, proses upload ke ImgBB
+                const imagePath = req.file.path;
+                const imageData = fs.readFileSync(imagePath);
+                const formData = new FormData();
+                formData.append('image', imageData.toString('base64'));
+
+                const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+                    headers: formData.getHeaders(),
+                });
+
+                fs.unlinkSync(imagePath);
+
+                const uploadedImageUrl = response.data.data.url;
+                const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+                data.image = correctUrl;
+
+            }
+
             const [updatedRows] = await Product.update(data, { where: { product_id } });
 
             if (updatedRows === 0) {
@@ -195,6 +213,8 @@ router.patch(
     }
 );
 
+
+
 router.delete("/api/product/:id", async(req, res) => {
     const product_id = req.params.id;
     try {
@@ -209,7 +229,7 @@ router.delete("/api/product/:id", async(req, res) => {
 
     } catch (error) {
         console.log(error)
-    }
+    }EDIT
 })
 
 export default router;

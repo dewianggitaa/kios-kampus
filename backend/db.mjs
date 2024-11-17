@@ -7,7 +7,10 @@ const pool = new Pool({
     password: "kfYzmsMX1e7V",
     host: "ep-hidden-fog-a17o0vk1.ap-southeast-1.aws.neon.tech",
     port: 5432,
-    database: "kioskampus_db"
+    database: "kioskampus_db",
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 const sequelize = new Sequelize('kioskampus_db', 'kioskampus_owner', 'kfYzmsMX1e7V', {

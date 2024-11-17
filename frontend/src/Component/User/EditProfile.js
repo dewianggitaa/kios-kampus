@@ -1,49 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import { useUser } from '../../UserContext'
-import Navbar from '../Navbar'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useUser } from '../../UserContext';
+import Navbar from '../Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
-  const { user, setUser } = useUser()
-  const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const { user, setUser } = useUser();
+  const [password, setPassword] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleEdit = async () => {
     if (!user || !user.user_id) {
-      console.error('User data or user_id is missing.')
-      return
+      console.error('User data or user_id is missing.');
+      return;
     }
 
-    let isModified = false
-    const userData = {}
+    let isModified = false;
+    const userData = {};
 
     // Track modified fields
     for (const key in user) {
       if (user[key] !== user.currentUser?.[key]) {
-        userData[key] = user[key]
-        isModified = true
+        userData[key] = user[key];
+        isModified = true;
       }
     }
 
     // Only include password if it's not empty
     if (password) {
-      userData['password'] = password
-      isModified = true
+      userData['password'] = password;
+      isModified = true;
     } else {
-      delete userData.password // Ensure password is not included if empty
+      delete userData.password; // Ensure password is not included if empty
     }
 
     if (!isModified) {
-      alert('No changes made to the profile.')
-      return
+      alert('No changes made to the profile.');
+      return;
     }
 
     try {
@@ -56,17 +57,21 @@ const EditProfile = () => {
           },
           body: JSON.stringify(userData), // Send only the modified fields
         }
-      )
+      );
 
-      if (!response.ok) throw new Error('Failed to edit user data')
+      if (!response.ok) throw new Error('Failed to edit user data');
 
-      const updatedUser = await response.json()
-      setUser(updatedUser)
-      navigate('/profile')
+      const updatedUser = await response.json();
+      setUser(updatedUser);
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+        navigate('/profile');
+      }, 1500); 
     } catch (error) {
-      console.error('Error in handleEdit:', error)
+      console.error('Error in handleEdit:', error);
     }
-  }
+  };
 
   return (
     <div className="h-screen">
@@ -122,8 +127,13 @@ const EditProfile = () => {
           Update
         </button>
       </div>
+      {showAlert && (
+        <div className="z-20 fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg">
+          Profile updated successfully!
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default EditProfile
+export default EditProfile;
