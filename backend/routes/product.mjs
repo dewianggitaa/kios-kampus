@@ -229,7 +229,7 @@ router.delete("/api/product/:id", async(req, res) => {
 
     } catch (error) {
         console.log(error)
-    }EDIT
+    }
 })
 
 export default router;

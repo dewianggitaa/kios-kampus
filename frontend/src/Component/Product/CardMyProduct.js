@@ -5,24 +5,27 @@ const CardMyProduct = ({data}) => {
     const navigate = useNavigate();
 
     const handleDelete = () => {
-        fetch(`http://localhost:5000/api/product/${data.product_id}`, {
-            method: 'DELETE',
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Failed to delete product");
-            }
-            return response.text(); 
-        })
-        .then((message) => {
-            console.log(message);
-            alert("Product deleted successfully!");
-            navigate('/profile')
-        })
-        .catch((error) => {
-            console.error("Error in handleDelete:", error);
-            alert("Failed to delete Product");
-        });
+        const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus produk ini?");
+        if (confirmDelete) {
+            fetch(`http://localhost:5000/api/product/${data.product_id}`, {
+                method: 'DELETE',
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to delete product");
+                }
+                return response.text(); 
+            })
+            .then((message) => {
+                console.log(message);
+                alert("Produk berhasil dihapus!");
+                window.location.reload(); 
+            })
+            .catch((error) => {
+                console.error("Error in handleDelete:", error);
+                alert("Gagal menghapus produk");
+            });
+        }
     };
 
     return (
