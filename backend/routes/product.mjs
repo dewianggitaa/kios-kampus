@@ -126,41 +126,26 @@ router.get("/api/products/search/:keyword", async (req, res) => {
 });
 
 
-router.post(
-    "/api/product",
-    upload.single("image"),
-    checkSchema(productValidation),
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+router.post("/api/product", upload.single("image"), checkSchema(productValidation), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-        const imagePath = req.file.path;
-
-        const data = matchedData(req);
-
-        if (req.file) {
-            data.image = req.file.path;
-        }
-
+    if (req.file) {
         try {
-            const imageData = fs.readFileSync(imagePath);
             const formData = new FormData();
-            formData.append('image', imageData.toString('base64'));
+            formData.append('image', req.file.buffer.toString('base64'));
 
             const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
                 headers: formData.getHeaders(),
             });
 
-            // Jika upload sukses, hapus file yang diupload dari server
-            fs.unlinkSync(imagePath);
-
-            // Simpan URL gambar dari imgbb ke dalam data produk
             const uploadedImageUrl = response.data.data.url;
             const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+            
+            const data = matchedData(req);
             data.image = correctUrl;
-
 
             const newProduct = await Product.create(data);
             res.status(201).json(newProduct);
@@ -168,8 +153,11 @@ router.post(
             console.error(err);
             res.status(500).send('Internal Server Error');
         }
+    } else {
+        res.status(400).send('No image uploaded');
     }
-);
+});
+
 
 router.patch(
     "/api/product/:id",
@@ -180,22 +168,16 @@ router.patch(
 
         try {
             if (req.file) {
-                // Jika ada file yang diunggah, proses upload ke ImgBB
-                const imagePath = req.file.path;
-                const imageData = fs.readFileSync(imagePath);
                 const formData = new FormData();
-                formData.append('image', imageData.toString('base64'));
+                formData.append('image', req.file.buffer.toString('base64'));
 
                 const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
                     headers: formData.getHeaders(),
                 });
 
-                fs.unlinkSync(imagePath);
-
                 const uploadedImageUrl = response.data.data.url;
                 const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
                 data.image = correctUrl;
-
             }
 
             const [updatedRows] = await Product.update(data, { where: { product_id } });
@@ -212,6 +194,7 @@ router.patch(
         }
     }
 );
+
 
 
 
