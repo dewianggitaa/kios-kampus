@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useUser } from '../../UserContext';
-import Navbar from '../Navbar';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useUser } from '../../UserContext'
+import { useNavigate } from 'react-router-dom'
+import { PiCheckCircle } from 'react-icons/pi' // Untuk ikon ceklis
 
 const EditProfile = () => {
   const { user, setUser } = useUser();
@@ -136,4 +136,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditProfile
