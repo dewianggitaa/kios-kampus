@@ -5,10 +5,7 @@
             "src": "backend/index.mjs",
             "use": "@vercel/node"
         }
-    ],
-    "hooks": {
-        "build": "npm install && npm run start:dev"
-    }
+    ]
 }
     
     
