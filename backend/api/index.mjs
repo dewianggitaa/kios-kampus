@@ -21,13 +21,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
-app.use('/images', express.static('./images'));
+app.use('/images', express.static('../images'));
 
 app.get("/", (req, res) => {
     console.log("hello world");
     return res.send("hola juga");
 });
 
-export default (req, res) => {
-    res.send("hola juga");
-};
+export default function handler(req, res) {
+    app(req, res);
+}
