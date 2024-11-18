@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useUser } from '../../UserContext'
 import { useNavigate } from 'react-router-dom'
 import { PiCheckCircle } from 'react-icons/pi' // Untuk ikon ceklis
+import Navbar from '../Navbar';
 
 const EditProfile = () => {
   const { user, setUser } = useUser();

@@ -110,6 +110,7 @@ const Profile = () => {
         </div>
       </div>
       
+
       <div className="px-16 py-8">
         <div className='text-md font-semibold mb-2'>My Product</div>
         <div className="border border-slate-400 rounded-xl text-left">
