@@ -28,6 +28,6 @@ app.get("/", (req, res) => {
     return res.send("hola juga");
 });
 
-export default function handler(req, res) {
-    app(req, res);
-}
+export default (req, res) => {
+    app(req, res); 
+};
