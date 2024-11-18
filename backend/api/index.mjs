@@ -3,8 +3,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
-import './strategies/local-strategy.mjs';
-import routes from './routes/index.mjs';
+import '../strategies/local-strategy.mjs';
+import routes from '../routes/index.mjs';
 
 const app = express();
 
