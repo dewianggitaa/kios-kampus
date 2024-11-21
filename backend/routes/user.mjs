@@ -77,6 +77,7 @@ router.get("/api/user/:id", async (req, res) => {
 
 router.patch("/api/user/:id", async (req, res) => {
     const user_id = req.params.id;
+    console.log(user_id)
     const data = req.body;
 
     if (data.password) {

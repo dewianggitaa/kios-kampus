@@ -4,8 +4,15 @@ import { checkSchema, matchedData, validationResult } from "express-validator";
 import { productValidation } from "../middleware/validate.mjs";
 import multer from 'multer';
 import path from 'path';
+import { Op } from 'sequelize';
+import axios from 'axios';
+import fs from 'fs';
+import FormData from 'form-data'
+
 
 const router = new Router();
+
+const imageAPIKey = "ce27330d1b0650de28d068b9e40df50a";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,6 +25,38 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+router.post('/api/upload', upload.single('image'), async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    try {
+        const imagePath = req.file.path;
+
+        const imageData = fs.readFileSync(imagePath);
+        const formData = new FormData();
+        formData.append('image', imageData.toString('base64'));
+    
+        const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+            headers: formData.getHeaders(),
+        });
+
+        const uploadedImageUrl = response.data.data.url;
+        const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+
+        fs.unlinkSync(imagePath);
+
+        res.status(200).json({
+            message: 'File uploaded successfully',
+            imageUrl: correctUrl, 
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error uploading image');
+    }
+});
+
 
 router.get("/api/products", async (req, res) => {
     try {
@@ -69,45 +108,78 @@ router.get("/api/product/:id", async (req, res) => {
     }
 })
 
-router.post(
-    "/api/product",
-    upload.single("image"),
-    checkSchema(productValidation),
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+router.get("/api/products/search/:keyword", async (req, res) => {
+    const { keyword } = req.params;
+    try {
+        const products = await Product.findAll({
+            where: {
+                product_name: {
+                    [Op.iLike]: `%${keyword}%`
+                }
+            }
+        });
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
-        const data = matchedData(req);
 
-        if (req.file) {
-            data.image = req.file.path;
-        }
+router.post("/api/product", upload.single("image"), checkSchema(productValidation), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
+    if (req.file) {
         try {
+            const formData = new FormData();
+            formData.append('image', req.file.buffer.toString('base64'));
+
+            const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+                headers: formData.getHeaders(),
+            });
+
+            const uploadedImageUrl = response.data.data.url;
+            const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+            
+            const data = matchedData(req);
+            data.image = correctUrl;
+
             const newProduct = await Product.create(data);
             res.status(201).json(newProduct);
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
         }
+    } else {
+        res.status(400).send('No image uploaded');
     }
-);
+});
+
 
 router.patch(
     "/api/product/:id",
     upload.single("image"),
     async (req, res) => {
-
         const product_id = req.params.id;
         const data = req.body;
 
-        if (req.file) {
-            data.image = req.file.path;
-        }
-
         try {
+            if (req.file) {
+                const formData = new FormData();
+                formData.append('image', req.file.buffer.toString('base64'));
+
+                const response = await axios.post('https://api.imgbb.com/1/upload?key=' + imageAPIKey, formData, {
+                    headers: formData.getHeaders(),
+                });
+
+                const uploadedImageUrl = response.data.data.url;
+                const correctUrl = uploadedImageUrl.replace('https://i.ibb.co/', 'https://i.ibb.co.com/');
+                data.image = correctUrl;
+            }
+
             const [updatedRows] = await Product.update(data, { where: { product_id } });
 
             if (updatedRows === 0) {
@@ -122,6 +194,9 @@ router.patch(
         }
     }
 );
+
+
+
 
 router.delete("/api/product/:id", async(req, res) => {
     const product_id = req.params.id;

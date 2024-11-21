@@ -3,17 +3,27 @@ const { Pool } = pkg;
 import { Sequelize } from "sequelize";
 
 const pool = new Pool({
-    user: "postgres",
-    password: "perjalanan",
-    host: "localhost",
+    user: "kioskampus_owner",
+    password: "kfYzmsMX1e7V",
+    host: "ep-hidden-fog-a17o0vk1.ap-southeast-1.aws.neon.tech",
     port: 5432,
-    database: "postgres"
+    database: "kioskampus_db",
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
-const sequelize = new Sequelize('postgres', 'postgres', 'perjalanan', {
-    host: 'localhost',
-    dialect: 'postgres'
-})
+const sequelize = new Sequelize('kioskampus_db', 'kioskampus_owner', 'kfYzmsMX1e7V', {
+    host: "ep-hidden-fog-a17o0vk1.ap-southeast-1.aws.neon.tech",
+    port: 5432,
+    dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false // Tambahkan ini jika Anda tidak memerlukan sertifikat SSL yang diverifikasi
+        }
+    }
+});
 
 
 
