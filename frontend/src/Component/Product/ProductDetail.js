@@ -48,7 +48,7 @@ const ProductDetail = () => {
         : '#';
 
   return (
-    <div className="flex flex-col h-sceen">
+    <div className="flex flex-col h-screen bg-slate-100">
       <Navbar />
       <div className=" bg-gray-100 py-16 px-16">
         <div className='text-md font-semibold'>Product Detail</div>
@@ -77,7 +77,7 @@ const ProductDetail = () => {
 
               <div className="flex flex-col space-y-4">
                 <h1 className="text-lg font-bold text-gray-900">
-                  Novel: {product.product_name}
+                  {product.product_name}
                 </h1>
                 <Link
                   to={`/seller-profile?id=${seller.user_id}`}
@@ -89,7 +89,6 @@ const ProductDetail = () => {
                 </Link>
                 <p className="text-gray-700">{product.description}</p>
 
-                {/* Kategori Produk */}
                 <div className="flex space-x-2">
                   {(product.categories || []).map((category) => (
                     <span

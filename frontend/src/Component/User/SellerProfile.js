@@ -73,9 +73,9 @@ const SellerProfile = () => {
                     Chat Seller on WhatsApp
                 </a>
 
-                <div className='my-8 text-sm'>
+                <div className='flex flex-col my-8 text-sm w-full justify-center'>
                     <div className='text-xs font-medium py-2'>{seller.name}'s Product</div>
-                    <div>
+                    <div className='w-full flex flex-col justify-center'>
                         {products.map((product) => (
                             <Link to={`/product-detail?id=${product.product_id}`}>
                                 <CardSellerProduct key={product.id} data={product} />

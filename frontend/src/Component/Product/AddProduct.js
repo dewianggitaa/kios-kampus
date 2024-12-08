@@ -50,7 +50,7 @@ const AddProduct = () => {
     return (
         <div className='flex flex-col h-screen overflow-hidden'>
             <Navbar />
-            <div className='px-16 py-8 bg-gray-100'>
+            <div className='px-16 py-8'>
                 <div className="font-semibold text-md pb-2">Add Product</div>
                 <div className='flex flex-col gap-4 ring-1 rounded-lg p-4 text-sm font-normal'>
                     <div>
@@ -72,8 +72,9 @@ const AddProduct = () => {
                     </div>
                     
                     <div>
-                        <div className='w-full rounded-md border border-gray-400 flex pl-2 items-center justify-center h-24'>
+                        <div className='w-full text-xs rounded-md border border-gray-400 flex pl-2 items-center justify-center h-24'>
                             <input 
+                                className='pl-8'
                                 type='file' 
                                 onChange={(event) => setImage(event.target.files[0])} 
                             />

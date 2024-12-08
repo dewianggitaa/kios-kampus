@@ -39,9 +39,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row w-screen h-screen">
-      <img src={image} className="w-full md:w-1/2 lg:w-1/2 h-1/3 md:h-screen object-cover" alt="Login Illustration" />
-      <div className="py-6 w-full md:w-1/2 flex flex-col justify-center items-center h-full">
+    <div className="bg-lime-200 flex flex-col sm:flex-col md:flex-row lg:flex-row w-screen h-screen">
+      <div className="w-full md:w-1/2 h-1/3 md:h-screen flex items-center justify-center">
+        <img src={image} className="w-40 md:w-full shadow-2xl md:shadow-none rounded-full md:rounded-none h-40 md:h-screen object-cover" alt="Login Illustration" />
+      </div>
+      <div className="shadow-lg md:shadow-none bg-white rounded-t-[30px] md:rounded-none py-6 w-full md:w-1/2 flex flex-col justify-center items-center h-full">
         <h1 className="text-center mb-10 text-2xl md:text-3xl lg:text-4xl font-semibold">Welcome Back!</h1>
         <p className='text-sm mb-3'>Enter your email and password to continue</p>
         <div className="flex bg-[#EAECEB] w-fit rounded-xl p-1 mb-5">
@@ -56,7 +58,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col md:w-1/2 lg:w-2/5 mb-3 gap-4">
           <div>
-            <p>Email</p>
+            <p>Username</p>
             <input
               className="hover:border-green-400 px-2 text-xs w-full h-10 border border-slate-400 rounded-md"
               value={email}

@@ -50,8 +50,9 @@ const Homepage = () => {
             <Navbar 
                 onCategorySelect={handleCategorySelect} 
                 onSearchResults={handleSearchResults}
-                onClearSearch={handleClearSearch} // Pass clear search to Navbar
-                enableSearch={true} // Enable search only in Homepage
+                onClearSearch={handleClearSearch}
+                enableCategory={true}
+                enableSearch={true}
             />
             <div className=' h-screen'>
                 <img src={landingImage} className='h-36 w-full object-cover' />

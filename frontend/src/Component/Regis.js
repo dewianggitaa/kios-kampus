@@ -16,7 +16,7 @@ const Regis = () => {
     const userData = {
       name: name,
       email: email,
-      no_wa: no_wa,
+      no_wa: "62"+no_wa,
       password: password,
     };
     fetch('http://localhost:5000/api/signup', {
@@ -38,9 +38,11 @@ const Regis = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row lg:flex-row w-screen h-screen">
-      <img src={image} className="w-full md:w-1/2 lg:w-1/2 h-1/3 md:h-screen lg:h-screen object-cover" alt="Registration Illustration" />
-      <div className="w-full md:w-1/2 lg:w-1/2 flex flex-col justify-center items-center h-full">
+    <div className="bg-lime-200 flex flex-col sm:flex-col md:flex-row lg:flex-row w-screen h-screen">
+      <div className='w-full md:w-1/2 h-1/3 md:h-screen flex items-center justify-center'>
+        <img src={image} className="w-40 md:w-full shadow-2xl md:shadow-none rounded-full md:rounded-none h-40 md:h-screen object-cover" alt="Registration Illustration" />
+      </div>
+      <div className="shadow-lg md:shadow-none bg-white rounded-t-[30px] md:rounded-none py-6 w-full md:w-1/2 flex flex-col justify-center items-center h-full">
         <h1 className="text-center mb-4 text-2xl md:text-3xl lg:text-4xl font-semibold">Get Started Now!</h1>
         <p className='text-sm mb-3'>Welcome! Please enter your detail</p>
         <div className="flex bg-[#EAECEB] w-fit rounded-xl p-1 mb-5">
@@ -65,7 +67,7 @@ const Regis = () => {
                 />
               </div>
               <div>
-                <p>Email</p>
+                <p>Username</p>
                 <input
                   className="px-2 text-xs w-full h-10 border border-slate-400 rounded-md hover:border-green-400"
                   value={email}
@@ -74,11 +76,15 @@ const Regis = () => {
               </div>
               <div>
                 <p>WhatsApp Numbers</p>
-                <input
-                  className="px-2 text-xs w-full h-10 border border-slate-400 rounded-md hover:border-green-400"
+                <div className='flex px-2 items-center focus:border-none text-xs w-full h-10 border border-slate-400 rounded-md hover:border-green-400'>
+                  <div>+62</div>
+                  
+                  <input
+                  className="ml-2 px-2 w-full h-9"
                   value={no_wa}
                   onChange={(event) => setNoWa(event.target.value)}
                 />
+                </div>
               </div>
               <div>
                 <p>Password</p>
